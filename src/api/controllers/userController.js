@@ -1,13 +1,9 @@
 const { Router } = require("express");
-const userSchema = require("../joiSchemas/userSchemas");
+const { validateNewUser } = require("../middlewares/userValidations");
 const userServices = require("../services/userService");
 
 const router = Router();
-router.post("/", async (req, res) => {
-    const validation = userSchema.createUserSchema.validate(req.body);
-    if (validation.error)
-        return res.status(400).send({ message: "Invalid entries. Try again." });
-
+router.post("/", validateNewUser, async (req, res) => {
     const { name, email, password } = req.body;
     const newUser = await userServices.createUser(name, email, password);
     const result = newUser
