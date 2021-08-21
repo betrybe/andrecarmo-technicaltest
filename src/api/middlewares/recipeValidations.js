@@ -8,4 +8,13 @@ function validateNewRecipe(req, res, next) {
     next();
 }
 
-module.exports = { validateNewRecipe };
+function validateId(req, res, next) {
+    const { id } = req.params;
+    const validation = recipeSchemas.idSchema.validate({ id });
+    if (validation.error)
+        return res.status(404).send({ message: "recipe not found" });
+
+    next();
+}
+
+module.exports = { validateNewRecipe, validateId };

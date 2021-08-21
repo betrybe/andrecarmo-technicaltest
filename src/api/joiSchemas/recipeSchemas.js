@@ -6,4 +6,8 @@ const createRecipeSchema = joi.object({
     preparation: joi.string().required(),
 });
 
-module.exports = { createRecipeSchema };
+const idSchema = joi.object({
+    id: joi.string().alphanum().length(24).required(),
+});
+
+module.exports = { createRecipeSchema, idSchema };
