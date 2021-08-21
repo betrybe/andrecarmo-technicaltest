@@ -1,4 +1,3 @@
-//import joi from "joi";
 const joi = require("joi");
 
 const createUserSchema = joi.object({

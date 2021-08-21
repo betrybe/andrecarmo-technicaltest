@@ -6,7 +6,14 @@ const createUser = async (name, email, password) => {
     if (user) return null;
 
     const newUser = await users.createUser(name, email, password);
-    return newUser;
+    return {
+        user: {
+            name,
+            email,
+            role: newUser.ops[0].role,
+            _id: newUser.ops[0]._id,
+        },
+    };
 };
 
 const loginUser = async (email, password) => {

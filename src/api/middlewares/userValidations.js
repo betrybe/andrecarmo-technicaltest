@@ -1,4 +1,5 @@
 const userSchemas = require("../joiSchemas/userSchemas");
+const verifyToken = require("../authentication/verifyToken");
 
 function validateNewUser(req, res, next) {
     const validation = userSchemas.createUserSchema.validate(req.body);
@@ -16,4 +17,18 @@ function validateLogin(req, res, next) {
     next();
 }
 
-module.exports = { validateNewUser, validateLogin };
+function validateToken(req, res, next) {
+    try {
+        const { authorization } = req.headers;
+        if (!authorization) {
+            return res.status(401).json({ message: "Missing auth token" });
+        }
+        const payload = verifyToken(authorization);
+        req.payload = payload;
+    } catch (error) {
+        return res.status(401).json({ message: "jwt malformed" });
+    }
+    next();
+}
+
+module.exports = { validateNewUser, validateLogin, validateToken };
