@@ -46,4 +46,20 @@ const updateRecipe = async (
     return null;
 };
 
-module.exports = { createRecipe, getAllRecipes, getRecipeById, updateRecipe };
+const deleteRecipe = async (id, userId, role) => {
+    const userMatch = await recipes.getByIdAndUserId(id, userId);
+    if (userMatch || role === "admin") {
+        const isDeleted = await recipes.deleteRecipe(id);
+
+        return isDeleted ? true : false;
+    }
+    return false;
+};
+
+module.exports = {
+    createRecipe,
+    getAllRecipes,
+    getRecipeById,
+    updateRecipe,
+    deleteRecipe,
+};
