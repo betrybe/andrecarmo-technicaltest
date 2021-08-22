@@ -24,4 +24,26 @@ const getRecipeById = async (id) => {
     return recipe;
 };
 
-module.exports = { createRecipe, getAllRecipes, getRecipeById };
+const updateRecipe = async (
+    id,
+    name,
+    ingredients,
+    preparation,
+    userId,
+    role
+) => {
+    const userMatch = await recipes.getByIdAndUserId(id, userId);
+    if (userMatch || role === "admin") {
+        const update = await recipes.updateRecipe(
+            id,
+            name,
+            ingredients,
+            preparation
+        );
+
+        return update ? await getRecipeById(id) : null;
+    }
+    return null;
+};
+
+module.exports = { createRecipe, getAllRecipes, getRecipeById, updateRecipe };
