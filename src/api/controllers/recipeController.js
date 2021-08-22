@@ -56,4 +56,13 @@ router.put("/:id", validateToken, async (req, res) => {
     res.status(result.status).send(result.body);
 });
 
+router.delete("/:id", validateToken, async (req, res) => {
+    const { id } = req.params;
+    const userId = req.payload.id;
+    const { role } = req.payload;
+    const isDeleted = await recipeServices.deleteRecipe(id, userId, role);
+    const status = isDeleted ? 204 : 404;
+    res.sendStatus(status);
+});
+
 module.exports = router;
