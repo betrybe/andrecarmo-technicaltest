@@ -36,4 +36,24 @@ router.get("/:id", validateId, async (req, res) => {
     res.status(result.status).send(result.body);
 });
 
+router.put("/:id", validateToken, async (req, res) => {
+    const { id } = req.params;
+    const { name, ingredients, preparation } = req.body;
+    const userId = req.payload.id;
+    const { role } = req.payload;
+    const recipe = await recipeServices.updateRecipe(
+        id,
+        name,
+        ingredients,
+        preparation,
+        userId,
+        role
+    );
+    const result = recipe
+        ? { status: 200, body: recipe }
+        : { status: 401, body: { message: "user unauthorized" } };
+
+    res.status(result.status).send(result.body);
+});
+
 module.exports = router;

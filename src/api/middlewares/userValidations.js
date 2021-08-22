@@ -21,7 +21,7 @@ function validateToken(req, res, next) {
     try {
         const { authorization } = req.headers;
         if (!authorization) {
-            return res.status(401).json({ message: "Missing auth token" });
+            return res.status(401).json({ message: "missing auth token" });
         }
         const payload = verifyToken(authorization);
         req.payload = payload;
@@ -31,4 +31,8 @@ function validateToken(req, res, next) {
     next();
 }
 
-module.exports = { validateNewUser, validateLogin, validateToken };
+module.exports = {
+    validateNewUser,
+    validateLogin,
+    validateToken,
+};
