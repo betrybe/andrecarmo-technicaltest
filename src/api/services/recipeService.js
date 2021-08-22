@@ -34,14 +34,14 @@ const updateRecipe = async (
 ) => {
     const userMatch = await recipes.getByIdAndUserId(id, userId);
     if (userMatch || role === "admin") {
-        const update = await recipes.updateRecipe(
+        const isUpdated = await recipes.updateRecipe(
             id,
             name,
             ingredients,
             preparation
         );
 
-        return update ? await getRecipeById(id) : null;
+        return isUpdated ? await getRecipeById(id) : null;
     }
     return null;
 };
@@ -56,10 +56,21 @@ const deleteRecipe = async (id, userId, role) => {
     return false;
 };
 
+const uploadImageToRecipe = async (id, image, userId, role) => {
+    const userMatch = await recipes.getByIdAndUserId(id, userId);
+    if (userMatch || role === "admin") {
+        const isUploaded = recipes.uploadImageToRecipe(id, image);
+
+        return isUploaded ? await getRecipeById(id) : null;
+    }
+    return false;
+};
+
 module.exports = {
     createRecipe,
     getAllRecipes,
     getRecipeById,
     updateRecipe,
     deleteRecipe,
+    uploadImageToRecipe,
 };
