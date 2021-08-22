@@ -56,6 +56,15 @@ const deleteRecipe = async (id) => {
     return recipe.result.ok;
 };
 
+const uploadImageToRecipe = async (id, image) => {
+    const updateImage = await connection().then((db) =>
+        db
+            .collection("recipes")
+            .updateOne({ _id: ObjectId(id) }, { $set: { image } })
+    );
+    return updateImage.result.ok;
+};
+
 module.exports = {
     createRecipe,
     getAllRecipes,
@@ -63,4 +72,5 @@ module.exports = {
     getByIdAndUserId,
     updateRecipe,
     deleteRecipe,
+    uploadImageToRecipe,
 };
