@@ -24,14 +24,8 @@ const getRecipeById = async (id) => {
     return recipe;
 };
 
-const updateRecipe = async (
-    id,
-    name,
-    ingredients,
-    preparation,
-    userId,
-    role,
-) => {
+const updateRecipe = async (paramsObj) => {
+    const { id, name, ingredients, preparation, userId, role } = paramsObj;
     const userMatch = await recipes.getByIdAndUserId(id, userId);
     if (userMatch || role === 'admin') {
         const isUpdated = await recipes.updateRecipe(
@@ -41,7 +35,8 @@ const updateRecipe = async (
             preparation,
         );
 
-        return isUpdated ? await getRecipeById(id) : null;
+        const result = isUpdated ? await getRecipeById(id) : null;
+        return result;
     }
     return null;
 };
@@ -61,7 +56,8 @@ const uploadImageToRecipe = async (id, image, userId, role) => {
     if (userMatch || role === 'admin') {
         const isUploaded = recipes.uploadImageToRecipe(id, image);
 
-        return isUploaded ? await getRecipeById(id) : null;
+        const result = isUploaded ? await getRecipeById(id) : null;
+        return result;
     }
     return false;
 };

@@ -52,14 +52,8 @@ router.put('/:id', validateToken, async (req, res) => {
     const { name, ingredients, preparation } = req.body;
     const userId = req.payload.id;
     const { role } = req.payload;
-    const recipe = await recipeServices.updateRecipe(
-        id,
-        name,
-        ingredients,
-        preparation,
-        userId,
-        role,
-    );
+    const paramsObj = { id, name, ingredients, preparation, userId, role };
+    const recipe = await recipeServices.updateRecipe(paramsObj);
     const result = recipe
         ? { status: 200, body: recipe }
         : { status: 401, body: { message: 'user unauthorized' } };

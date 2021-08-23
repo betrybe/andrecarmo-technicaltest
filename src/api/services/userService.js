@@ -11,7 +11,7 @@ const createUser = async (name, email, password) => {
             name,
             email,
             role: newUser.ops[0].role,
-            _id: newUser.ops[0]._id,
+            _id: newUser.ops[0].id,
         },
     };
 };
@@ -21,7 +21,7 @@ const loginUser = async (email, password) => {
     if (!user) return null;
 
     const payload = {
-        id: user._id,
+        id: user.id,
         email,
         role: user.role,
     };
