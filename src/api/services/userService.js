@@ -1,5 +1,5 @@
-const users = require("../repositories/userRepository");
-const createToken = require("../authentication/createToken");
+const users = require('../repositories/userRepository');
+const createToken = require('../authentication/createToken');
 
 const createUser = async (name, email, password) => {
     const user = await users.findByEmail(email);

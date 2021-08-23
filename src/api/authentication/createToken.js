@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const SECRET = "coockmasterSecret";
+const SECRET = 'coockmasterSecret';
 
 const headers = {
-    algorithm: "HS256",
-    expiresIn: "3d",
+    algorithm: 'HS256',
+    expiresIn: '3d',
 };
 
 const createToken = (payload) => {

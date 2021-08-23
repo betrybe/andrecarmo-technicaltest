@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const SECRET = "coockmasterSecret";
+const SECRET = 'coockmasterSecret';
 
 const verifyToken = (authorization) => {
     const payload = jwt.verify(authorization, SECRET);

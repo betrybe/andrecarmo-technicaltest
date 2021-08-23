@@ -1,11 +1,11 @@
-const recipes = require("../repositories/recipeRepository");
+const recipes = require('../repositories/recipeRepository');
 
 const createRecipe = async (name, ingredients, preparation, userId) => {
     const newRecipe = await recipes.createRecipe(
         name,
         ingredients,
         preparation,
-        userId
+        userId,
     );
 
     const { insertedId } = newRecipe;
@@ -30,15 +30,15 @@ const updateRecipe = async (
     ingredients,
     preparation,
     userId,
-    role
+    role,
 ) => {
     const userMatch = await recipes.getByIdAndUserId(id, userId);
-    if (userMatch || role === "admin") {
+    if (userMatch || role === 'admin') {
         const isUpdated = await recipes.updateRecipe(
             id,
             name,
             ingredients,
-            preparation
+            preparation,
         );
 
         return isUpdated ? await getRecipeById(id) : null;
@@ -48,17 +48,17 @@ const updateRecipe = async (
 
 const deleteRecipe = async (id, userId, role) => {
     const userMatch = await recipes.getByIdAndUserId(id, userId);
-    if (userMatch || role === "admin") {
+    if (userMatch || role === 'admin') {
         const isDeleted = await recipes.deleteRecipe(id);
 
-        return isDeleted ? true : false;
+        return !!isDeleted;
     }
     return false;
 };
 
 const uploadImageToRecipe = async (id, image, userId, role) => {
     const userMatch = await recipes.getByIdAndUserId(id, userId);
-    if (userMatch || role === "admin") {
+    if (userMatch || role === 'admin') {
         const isUploaded = recipes.uploadImageToRecipe(id, image);
 
         return isUploaded ? await getRecipeById(id) : null;

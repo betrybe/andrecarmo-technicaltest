@@ -1,4 +1,4 @@
-const joi = require("joi");
+const joi = require('joi');
 
 const createUserSchema = joi.object({
     name: joi.string().required(),
