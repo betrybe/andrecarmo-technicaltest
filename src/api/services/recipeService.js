@@ -5,7 +5,7 @@ const createRecipe = async (name, ingredients, preparation, userId) => {
         name,
         ingredients,
         preparation,
-        userId
+        userId,
     );
 
     const { insertedId } = newRecipe;
@@ -32,7 +32,7 @@ const updateRecipe = async (paramsObj) => {
             id,
             name,
             ingredients,
-            preparation
+            preparation,
         );
 
         const result = isUpdated ? await getRecipeById(id) : null;
