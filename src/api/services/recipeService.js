@@ -5,7 +5,7 @@ const createRecipe = async (name, ingredients, preparation, userId) => {
         name,
         ingredients,
         preparation,
-        userId,
+        userId
     );
 
     const { insertedId } = newRecipe;
@@ -32,7 +32,7 @@ const updateRecipe = async (paramsObj) => {
             id,
             name,
             ingredients,
-            preparation,
+            preparation
         );
 
         const result = isUpdated ? await getRecipeById(id) : null;
@@ -54,7 +54,7 @@ const deleteRecipe = async (id, userId, role) => {
 const uploadImageToRecipe = async (id, image, userId, role) => {
     const userMatch = await recipes.getByIdAndUserId(id, userId);
     if (userMatch || role === 'admin') {
-        const isUploaded = recipes.uploadImageToRecipe(id, image);
+        const isUploaded = await recipes.uploadImageToRecipe(id, image);
 
         const result = isUploaded ? await getRecipeById(id) : null;
         return result;
